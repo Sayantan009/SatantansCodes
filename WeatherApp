@@ -1,0 +1,20 @@
+import requests
+import pyttsx3
+import json
+
+city = input ("Enter the name of the city:\n")
+url = f"http://api.weatherapi.com/v1/current.json?key=2c0979404776402ab01182129231004&q={city}"
+
+r = requests.get(url)
+
+widc = json.loads(r.text)
+t = widc["current"]["temp_c"]
+
+print(f"Temperature of {city} is {t}")
+
+x = pyttsx3.init()
+voices = x.getProperty('voices')
+x.setProperty('voice', voices[1].id)
+x.say(f"The temperature of {city} is {t} degrees")
+x.runAndWait()
+x.stop()
